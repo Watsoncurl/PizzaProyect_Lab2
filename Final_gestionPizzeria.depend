@@ -1,0 +1,82 @@
+# depslib dependency file v1.0
+1654505027 source:c:\users\watson\script\c++\codeblocks\test\final_gestionpizzeria\main.cpp
+	"Header.h"
+
+1654484891 source:c:\users\watson\script\c++\codeblocks\test\final_gestionpizzeria\src\fecha.cpp
+	"Fecha.h"
+	<iostream>
+	<time.h>
+
+1654484891 c:\users\watson\script\c++\codeblocks\test\final_gestionpizzeria\include\fecha.h
+
+1654505027 c:\users\watson\script\c++\codeblocks\test\final_gestionpizzeria\header.h
+	<iostream>
+	"Fecha.h"
+
+1654502444 source:c:\users\watson\script\c++\codeblocks\test\final_gestionpizzeria\src\pedidocabecera.cpp
+	"PedidoCabecera.h"
+
+1654501135 c:\users\watson\script\c++\codeblocks\test\final_gestionpizzeria\include\pedidocabecera.h
+	"Fecha.h"
+
+1654505041 source:c:\users\watson\script\c++\codeblocks\test\final_gestionpizzeria\src\cliente.cpp
+	"Cliente.h"
+	<string.h>
+
+1654502965 c:\users\watson\script\c++\codeblocks\test\final_gestionpizzeria\include\cliente.h
+
+1654504328 source:c:\users\watson\script\c++\codeblocks\test\final_gestionpizzeria\src\producto.cpp
+	"Producto.h"
+	<string.h>
+
+1654504236 c:\users\watson\script\c++\codeblocks\test\final_gestionpizzeria\include\producto.h
+
+1654504928 source:c:\users\watson\script\c++\codeblocks\test\final_gestionpizzeria\src\venta.cpp
+	"Venta.h"
+
+1654505080 c:\users\watson\script\c++\codeblocks\test\final_gestionpizzeria\include\venta.h
+	"Fecha.h"
+
+1654505147 source:c:\users\watson\script\c++\codeblocks\test\final_gestionpizzeria\src\pedidodetalle.cpp
+	"PedidoDetalle.h"
+	<string.h>
+
+1654502258 c:\users\watson\script\c++\codeblocks\test\final_gestionpizzeria\include\pedidodetalle.h
+
+1654505041 source:c:\users\watson\script\utn\laboratorio 2\pizzaproyect_lab2\src\cliente.cpp
+	"Cliente.h"
+	<string.h>
+
+1654502965 c:\users\watson\script\utn\laboratorio 2\pizzaproyect_lab2\include\cliente.h
+
+1654484891 source:c:\users\watson\script\utn\laboratorio 2\pizzaproyect_lab2\src\fecha.cpp
+	"Fecha.h"
+	<iostream>
+	<time.h>
+
+1654484891 c:\users\watson\script\utn\laboratorio 2\pizzaproyect_lab2\include\fecha.h
+
+1654502444 source:c:\users\watson\script\utn\laboratorio 2\pizzaproyect_lab2\src\pedidocabecera.cpp
+	"PedidoCabecera.h"
+
+1654501135 c:\users\watson\script\utn\laboratorio 2\pizzaproyect_lab2\include\pedidocabecera.h
+	"Fecha.h"
+
+1654505147 source:c:\users\watson\script\utn\laboratorio 2\pizzaproyect_lab2\src\pedidodetalle.cpp
+	"PedidoDetalle.h"
+	<string.h>
+
+1654502258 c:\users\watson\script\utn\laboratorio 2\pizzaproyect_lab2\include\pedidodetalle.h
+
+1654504328 source:c:\users\watson\script\utn\laboratorio 2\pizzaproyect_lab2\src\producto.cpp
+	"Producto.h"
+	<string.h>
+
+1654504236 c:\users\watson\script\utn\laboratorio 2\pizzaproyect_lab2\include\producto.h
+
+1654504928 source:c:\users\watson\script\utn\laboratorio 2\pizzaproyect_lab2\src\venta.cpp
+	"Venta.h"
+
+1654505080 c:\users\watson\script\utn\laboratorio 2\pizzaproyect_lab2\include\venta.h
+	"Fecha.h"
+

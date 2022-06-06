@@ -13,6 +13,7 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-g" />
+					<Add directory="include" />
 				</Compiler>
 			</Target>
 			<Target title="Release">
@@ -22,6 +23,7 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-O2" />
+					<Add directory="include" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
@@ -32,7 +34,20 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="Header.h" />
+		<Unit filename="include/Cliente.h" />
+		<Unit filename="include/Fecha.h" />
+		<Unit filename="include/PedidoCabecera.h" />
+		<Unit filename="include/PedidoDetalle.h" />
+		<Unit filename="include/Producto.h" />
+		<Unit filename="include/Venta.h" />
 		<Unit filename="main.cpp" />
+		<Unit filename="src/Cliente.cpp" />
+		<Unit filename="src/Fecha.cpp" />
+		<Unit filename="src/PedidoCabecera.cpp" />
+		<Unit filename="src/PedidoDetalle.cpp" />
+		<Unit filename="src/Producto.cpp" />
+		<Unit filename="src/Venta.cpp" />
 		<Extensions>
 			<lib_finder disable_auto="1" />
 		</Extensions>
