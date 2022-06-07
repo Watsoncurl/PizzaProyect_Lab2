@@ -1,7 +1,6 @@
 #include "Header.h"
 
-int main()
-{
+int main() {
     int opc;
     cout<<"MENU PRINCIPAL"<<endl;
     cout<<"----------------"<<endl;
