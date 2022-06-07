@@ -27,7 +27,7 @@ class Cliente {
     char *getDireccion();
     bool getEstado();
 // metodos
-    void cargar();
+    void cargar(int dni=0);
     void mostrar();
     int  escribirArchivo();
     int  leerArchivo(int);

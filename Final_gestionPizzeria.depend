@@ -80,41 +80,48 @@
 1654505080 c:\users\watson\script\utn\laboratorio 2\pizzaproyect_lab2\include\venta.h
 	"Fecha.h"
 
-1654569590 source:c:\users\carlo\documents\github\pizzaproyect_lab2\main.cpp
+1654634703 source:c:\users\carlo\documents\github\pizzaproyect_lab2\main.cpp
 	"Header.h"
 
-1654548247 c:\users\carlo\documents\github\pizzaproyect_lab2\header.h
+1654634463 c:\users\carlo\documents\github\pizzaproyect_lab2\header.h
 	<iostream>
-	"Fecha.h"
 
 1654548247 c:\users\carlo\documents\github\pizzaproyect_lab2\include\fecha.h
 
-1654548247 source:c:\users\carlo\documents\github\pizzaproyect_lab2\src\fecha.cpp
+1654620223 source:c:\users\carlo\documents\github\pizzaproyect_lab2\src\fecha.cpp
 	"Fecha.h"
 	<iostream>
-	<time.h>
+	<ctime>
 
-1654548247 source:c:\users\carlo\documents\github\pizzaproyect_lab2\src\pedidocabecera.cpp
+1654632895 source:c:\users\carlo\documents\github\pizzaproyect_lab2\src\pedidocabecera.cpp
+	<iostream>
 	"PedidoCabecera.h"
+	"PedidoDetalle.h"
+	"Cliente.h"
+	"Producto.h"
+	"Extra.h"
 
-1654548247 c:\users\carlo\documents\github\pizzaproyect_lab2\include\pedidocabecera.h
+1654632847 c:\users\carlo\documents\github\pizzaproyect_lab2\include\pedidocabecera.h
 	"Fecha.h"
 
-1654570273 source:c:\users\carlo\documents\github\pizzaproyect_lab2\src\cliente.cpp
+1654612196 source:c:\users\carlo\documents\github\pizzaproyect_lab2\src\cliente.cpp
 	<iostream>
 	<cstdio>
 	<cstring>
 	"Cliente.h"
 
-1654570038 c:\users\carlo\documents\github\pizzaproyect_lab2\include\cliente.h
+1654612159 c:\users\carlo\documents\github\pizzaproyect_lab2\include\cliente.h
 
-1654548247 source:c:\users\carlo\documents\github\pizzaproyect_lab2\src\pedidodetalle.cpp
+1654632083 source:c:\users\carlo\documents\github\pizzaproyect_lab2\src\pedidodetalle.cpp
+	<iostream>
+	<cstring>
 	"PedidoDetalle.h"
-	<string.h>
+	"PedidoCabecera.h"
+	"Producto.h"
 
-1654548247 c:\users\carlo\documents\github\pizzaproyect_lab2\include\pedidodetalle.h
+1654632004 c:\users\carlo\documents\github\pizzaproyect_lab2\include\pedidodetalle.h
 
-1654571085 source:c:\users\carlo\documents\github\pizzaproyect_lab2\src\producto.cpp
+1654609352 source:c:\users\carlo\documents\github\pizzaproyect_lab2\src\producto.cpp
 	"Producto.h"
 	<iostream>
 	<cstdio>
@@ -127,4 +134,15 @@
 
 1654548247 c:\users\carlo\documents\github\pizzaproyect_lab2\include\venta.h
 	"Fecha.h"
+
+1654631849 c:\users\carlo\documents\github\pizzaproyect_lab2\include\extra.h
+	<cstdio>
+
+1654635097 source:c:\users\carlo\documents\github\pizzaproyect_lab2\src\funcs.cpp
+	"../Header.h"
+	"Cliente.h"
+	"Producto.h"
+	"PedidoCabecera.h"
+	"PedidoDetalle.h"
+	"Venta.h"
 

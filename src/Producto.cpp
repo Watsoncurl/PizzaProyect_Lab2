@@ -66,7 +66,7 @@ void Producto::mostrar() {
 int Producto::escribirArchivo() {
     FILE *f;
     f = fopen("Productos.dat", "ab");
-    if(f == NULL) return -1;
+    if(f == nullptr) return -1;
 
     int ret = fwrite(this, sizeof(Producto), 1, f);
     fclose(f);
@@ -77,7 +77,7 @@ int Producto::escribirArchivo() {
 int Producto::leerArchivo(int pos_actual) {
     FILE *f;
     f = fopen("Productos.dat", "rb");
-    if(f == NULL) return -1;
+    if(f == nullptr) return -1;
 
     int ret = fread(this, sizeof(Producto) * pos_actual, 1, f);
     fclose(f);
@@ -88,7 +88,7 @@ int Producto::leerArchivo(int pos_actual) {
 int Producto::verificarCodigo(char codigo[4], int *p) {
     FILE *f;
     f = fopen("Productos.dat", "rb");
-    if(f == NULL) return -1;
+    if(f == nullptr) return -1;
 
     while(fread(this, sizeof(Producto), 1, f) == 1) {
         if(strcmp(_codigo, codigo) == 0) {

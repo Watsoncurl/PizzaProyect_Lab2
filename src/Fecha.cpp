@@ -1,6 +1,6 @@
 #include "Fecha.h"
 #include <iostream>
-#include <time.h>
+#include <ctime>
 
 Fecha::Fecha()
 {

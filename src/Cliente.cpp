@@ -64,9 +64,14 @@ bool Cliente::getEstado() {
 }
 
 // metodos
-void Cliente::cargar() {
-    std::cout << "\nDNI: ";
-    std::cin >> _dni;
+void Cliente::cargar(int dni) {
+    if(dni != 0) {
+        this->_dni = dni;
+    }
+    else {
+        std::cout << "\nDNI: ";
+        std::cin >> _dni;
+    }
     std::cout << "\nNombre: ";
     std::cin >> _nombre;
     std::cout << "\nApellido: ";
@@ -81,18 +86,18 @@ void Cliente::cargar() {
     _estado = true;
 }
 void Cliente::mostrar() {
-    std::cout << "\nDNI: " << _dni << "\n";
-    std::cout << "\nNombre: " << _nombre << "\n";
-    std::cout << "\nApellido: " << _apellido << "\n";
-    std::cout << "\nTelefono: " << _telefono << "\n";
-    std::cout << "\nEmail: " << _email << "\n";
+    std::cout << "\nDNI: " << _dni;
+    std::cout << "\nNombre: " << _nombre;
+    std::cout << "\nApellido: " << _apellido;
+    std::cout << "\nTelefono: " << _telefono;
+    std::cout << "\nEmail: " << _email;
     std::cout << "\nDireccion: " << _direccion << "\n";
 }
 
 int Cliente::escribirArchivo() {
     FILE *f;
     f = fopen("Clientes.dat", "ab");
-    if(f == NULL) return -1;
+    if(f == nullptr) return -1;
 
     int ret = fwrite(this, sizeof(Cliente), 1, f);
     fclose(f);
@@ -103,7 +108,7 @@ int Cliente::escribirArchivo() {
 int Cliente::leerArchivo(int pos_actual) {
     FILE *f;
     f = fopen("Clientes.dat", "rb");
-    if(f == NULL) return -1;
+    if(f == nullptr) return -1;
 
     int ret = fread(this, sizeof(Cliente) * pos_actual, 1, f);
     fclose(f);
@@ -114,7 +119,7 @@ int Cliente::leerArchivo(int pos_actual) {
 int Cliente::verificarDni(int dni, int *p) {
     FILE *f;
     f = fopen("Clientes.dat", "rb");
-    if(f == NULL) return -1;
+    if(f == nullptr) return -1;
 
     while(fread(this, sizeof(Cliente), 1, f) == 1) {
         if(_dni == dni) {
