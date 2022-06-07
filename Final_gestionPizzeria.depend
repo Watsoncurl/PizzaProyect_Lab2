@@ -80,10 +80,16 @@
 1654505080 c:\users\watson\script\utn\laboratorio 2\pizzaproyect_lab2\include\venta.h
 	"Fecha.h"
 
-1654634703 source:c:\users\carlo\documents\github\pizzaproyect_lab2\main.cpp
+1654637205 source:c:\users\carlo\documents\github\pizzaproyect_lab2\main.cpp
 	"Header.h"
+	"Cliente.h"
+	"Producto.h"
+	"PedidoCabecera.h"
+	"PedidoDetalle.h"
+	"Venta.h"
+	<cstdio>
 
-1654634463 c:\users\carlo\documents\github\pizzaproyect_lab2\header.h
+1654637321 c:\users\carlo\documents\github\pizzaproyect_lab2\header.h
 	<iostream>
 
 1654548247 c:\users\carlo\documents\github\pizzaproyect_lab2\include\fecha.h
@@ -101,16 +107,16 @@
 	"Producto.h"
 	"Extra.h"
 
-1654632847 c:\users\carlo\documents\github\pizzaproyect_lab2\include\pedidocabecera.h
+1654637302 c:\users\carlo\documents\github\pizzaproyect_lab2\include\pedidocabecera.h
 	"Fecha.h"
 
-1654612196 source:c:\users\carlo\documents\github\pizzaproyect_lab2\src\cliente.cpp
+1654638409 source:c:\users\carlo\documents\github\pizzaproyect_lab2\src\cliente.cpp
 	<iostream>
 	<cstdio>
 	<cstring>
 	"Cliente.h"
 
-1654612159 c:\users\carlo\documents\github\pizzaproyect_lab2\include\cliente.h
+1654639131 c:\users\carlo\documents\github\pizzaproyect_lab2\include\cliente.h
 
 1654632083 source:c:\users\carlo\documents\github\pizzaproyect_lab2\src\pedidodetalle.cpp
 	<iostream>
@@ -127,22 +133,17 @@
 	<cstdio>
 	<cstring>
 
-1654570875 c:\users\carlo\documents\github\pizzaproyect_lab2\include\producto.h
+1654637292 c:\users\carlo\documents\github\pizzaproyect_lab2\include\producto.h
 
 1654548247 source:c:\users\carlo\documents\github\pizzaproyect_lab2\src\venta.cpp
 	"Venta.h"
 
-1654548247 c:\users\carlo\documents\github\pizzaproyect_lab2\include\venta.h
+1654637316 c:\users\carlo\documents\github\pizzaproyect_lab2\include\venta.h
 	"Fecha.h"
 
 1654631849 c:\users\carlo\documents\github\pizzaproyect_lab2\include\extra.h
 	<cstdio>
 
-1654635097 source:c:\users\carlo\documents\github\pizzaproyect_lab2\src\funcs.cpp
+1654637214 source:c:\users\carlo\documents\github\pizzaproyect_lab2\src\funcs.cpp
 	"../Header.h"
-	"Cliente.h"
-	"Producto.h"
-	"PedidoCabecera.h"
-	"PedidoDetalle.h"
-	"Venta.h"
 

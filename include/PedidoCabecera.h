@@ -33,4 +33,11 @@ class PedidoCabecera {
         int  verificarNumero(int numero, int *p=nullptr);
 };
 
+void menuPedidos();
+void cargarPedidos();
+void modifPedidos();
+void verPedidosActivos();
+void verPedidosTodos();
+void borrarPedidos();
+
 #endif // PEDIDOCABECERA_H

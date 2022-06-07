@@ -1,4 +1,10 @@
 #include "Header.h"
+#include "Cliente.h"
+#include "Producto.h"
+#include "PedidoCabecera.h"
+#include "PedidoDetalle.h"
+#include "Venta.h"
+#include <cstdio>
 
 int main() {
     int opc;

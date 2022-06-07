@@ -29,4 +29,10 @@ class Producto {
         void restarStock(int);
 };
 
+void menuProductos();
+void cargarProductos();
+void modifProductos();
+void verProductos();
+void borrarProductos();
+
 #endif // PRODUCTO_H

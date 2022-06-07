@@ -34,4 +34,11 @@ class Cliente {
     int  verificarDni(int, int *p=nullptr);
 };
 
+void menuClientes();
+void cargarClientes();
+void modifClientes(int dni);
+void verClientes();
+void borrarClientes(int dni);
+void reemplClientes(Cliente cliente);
+
 #endif // CLIENTE_H

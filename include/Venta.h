@@ -30,4 +30,9 @@ class Venta
         void cargar();
 };
 
+void menuVentas();
+void modifVentas();
+void verVentas();
+void borrarVentas();
+
 #endif // VENTA_H
