@@ -113,8 +113,8 @@ int Cliente::leerArchivo(int pos_actual) {
     FILE *f;
     f = fopen("Clientes.dat", "rb");
     if(f == nullptr) return -1;
-
-    int ret = fread(this, sizeof(Cliente) * pos_actual, 1, f);
+    fseek(f, sizeof(Cliente)*pos_actual, 0);
+    int ret = fread(this, sizeof(Cliente), 1, f);
     fclose(f);
 
     return ret;

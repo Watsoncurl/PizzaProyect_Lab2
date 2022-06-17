@@ -6,7 +6,7 @@
 #include "Producto.h"
 
 
-PedidoDetalle::PedidoDetalle(int _nroPedido, int _cantidad, const char _codigoProducto[4], float _importe) {
+PedidoDetalle::PedidoDetalle(int _nroPedido, int _cantidad, const char _codigoProducto[4], float _importe, bool estado) {
 
 }
 
@@ -26,9 +26,10 @@ void PedidoDetalle::setCodigoProducto(char codigo[4]) {
 }
 void PedidoDetalle::setImporte(float importe) {
     this->_importe = importe;
-
 }
-
+void PedidoDetalle::setEstado(bool estado){
+    this->_estado = estado;
+}
 // gets
 int PedidoDetalle::getNroPedido() {
     return this->_nroPedido;
@@ -42,36 +43,43 @@ char *PedidoDetalle::getCodigoProducto() {
 float PedidoDetalle::getImporte() {
     return this->_importe;
 }
+bool PedidoDetalle::getEstado() {
+    return this->_estado;
+}
 
 // metodos
-int PedidoDetalle::cargar(int nroPedido) {
+int PedidoDetalle::cargar(int nroPedido, char* codigoProducto) {
     this->_nroPedido = nroPedido;
 
-    std::cout << "\nCodigo (Producto): ";
-    std::cin >> _codigoProducto;
     Producto producto;
-    if(producto.verificarCodigo(_codigoProducto) != 1) {
+    if(producto.verificarCodigo(codigoProducto) != 1) {
         std::cout << "\n\nError: Codigo inexistente.\n\n";
         system("pause");
         return 0;
     }
+    strcpy(this->_codigoProducto, codigoProducto);
 
+    int cantidad;
     std::cout << "\nCantidad (Producto): ";
-    std::cin >> _cantidad;
-    if(producto.getStock() <= 0) {
+    std::cin >> cantidad;
+
+    bool test = verificarStock(codigoProducto, cantidad);
+    if(!test) {
         std::cout << "\n\nError: Sin stock.\n\n";
         system("pause");
         return 0;
     }
+    this->_cantidad = cantidad;
 
-    calcularImporte(producto.getPrecioUnit(), _cantidad);
+    calcularImporte(producto.getPrecioUnit(), this->_cantidad);
+    this->_estado = true;
     return 1;
 }
 void PedidoDetalle::mostrar() {
-    std::cout << "\nNº de pedido: " << _nroPedido << "\n";
-    std::cout << "\nCodigo (Producto): " << _codigoProducto << "\n";
-    std::cout << "\nUnidades: " << _cantidad << "\n";
-    std::cout << "\nImporte: $" << _importe << "\n";
+    if(this->_estado)
+    {
+        std::cout << "Pedido Nro: " << _nroPedido << "\tCodigo (Producto): " << _codigoProducto << "\tUnidades: " << _cantidad << "\tImporte: $" << _importe << "\n";
+    }
 }
 
 int PedidoDetalle::escribirArchivo() {
@@ -88,8 +96,8 @@ int PedidoDetalle::leerArchivo(int pos_actual) {
     FILE *f;
     f = fopen("PedidosDetalle.dat", "rb");
     if(f == nullptr) return -1;
-
-    int ret = fread(this, sizeof(PedidoDetalle) * pos_actual, 1, f);
+    fseek(f, sizeof(PedidoDetalle)*pos_actual, 0);
+    int ret = fread(this, sizeof(PedidoDetalle), 1, f);
     fclose(f);
 
     return ret;
@@ -97,4 +105,19 @@ int PedidoDetalle::leerArchivo(int pos_actual) {
 
 void PedidoDetalle::calcularImporte(float importe, int cantidad) {
     this->_importe = importe * cantidad;
+}
+
+//------------------------------------------------------------------------------
+
+void mostrarPedidosDetallesPorNroPedido(int numeroDePedido)
+{
+    PedidoDetalle aux;
+    int i = 0;
+    while(aux.leerArchivo(i++) == 1)
+    {
+        if(aux.getEstado() == true && aux.getNroPedido() == numeroDePedido)
+        {
+            aux.mostrar();
+        }
+    }
 }

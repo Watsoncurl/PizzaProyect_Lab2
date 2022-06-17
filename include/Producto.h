@@ -38,5 +38,6 @@ void modifProductos(char*);
 void verProductos();
 void borrarProductos(char*);
 void reemplProductos(Producto);
+bool verificarStock(char*, int);
 
 #endif // PRODUCTO_H

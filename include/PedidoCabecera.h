@@ -10,7 +10,7 @@ class PedidoCabecera {
         Fecha _fechaPedido;
         bool  _entregado;
     public:
-        PedidoCabecera();
+        PedidoCabecera(int nroPedido = 0, int dniCliente = 0, float precioTotal = 0, int dia = 0, int mes = 0, int anio = 0, bool entregado = false);
         ~PedidoCabecera();
 // sets
         void setNumeroPedido(int);
@@ -39,5 +39,7 @@ void modifPedidos();
 void verPedidosActivos();
 void verPedidosTodos();
 void borrarPedidos();
+int  autoNroPedido();
+bool guardarPedidosDetallesPorNroPedido(int,int);
 
 #endif // PEDIDOCABECERA_H

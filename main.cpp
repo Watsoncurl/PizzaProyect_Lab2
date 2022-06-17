@@ -23,7 +23,7 @@ int main() {
         switch(opc) {
             case 1: menuClientes(); break;
             case 2: menuProductos(); break;
-            case 3: break;
+            case 3: menuPedidos(); break;
             case 4: break;
             case 0: return 0;
             default:

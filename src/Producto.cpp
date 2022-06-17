@@ -90,12 +90,13 @@ int Producto::leerArchivo(int pos_actual) {
     FILE *f;
     f = fopen("Productos.dat", "rb");
     if(f == nullptr) return -1;
-
-    int ret = fread(this, sizeof(Producto) * pos_actual, 1, f);
+    fseek(f, sizeof(Producto)*pos_actual, 0);
+    int ret = fread(this, sizeof(Producto), 1, f);
     fclose(f);
 
     return ret;
 }
+
 
 int Producto::verificarCodigo(char codigo[4], int *p) {
     FILE *f;
@@ -334,4 +335,18 @@ void reemplProductos(Producto producto)
     free(productoAux);
 
     fclose(f);
+}
+
+bool verificarStock(char* codigo, int cantidadPedida)
+{
+    Producto obj;
+    int i = 0;
+    while(obj.leerArchivo(i++))
+    {
+        if(strcmp(codigo, obj.getCodigo()) == 0)
+        {
+            if(obj.getStock() >= cantidadPedida && cantidadPedida > 0) return true;
+        }
+    }
+    return false;
 }
