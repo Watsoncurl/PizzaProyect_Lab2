@@ -1,28 +1,15 @@
 
 #include <iostream>
-#include <string.h>
+
+#include "FuncionesWindows.h"
 #include "PedidoCabecera.h"
-#include "PedidoDetalle.h"
 #include "Cliente.h"
 #include "Producto.h"
 #include "Extra.h"
 
-PedidoCabecera::PedidoCabecera(int nroPedido, int dniCliente, float precioTotal, int dia, int mes, int anio, bool entregado) {
-    //ctor
-    this->_nroPedido = nroPedido;
-    this->_dniCliente = dniCliente;
-    this->_precioTotal = precioTotal;
-    this->_fechaPedido.setDia(dia);
-    this->_fechaPedido.setMes(mes);
-    this->_fechaPedido.setAnio(anio);
-    this->_entregado = entregado;
-}
+using namespace std;
 
-PedidoCabecera::~PedidoCabecera() {
-    //dtor
-}
-
-// sets
+/// sets
 void PedidoCabecera::setNumeroPedido(int nroPedido) {
     this->_nroPedido = nroPedido;
 }
@@ -40,8 +27,11 @@ void PedidoCabecera::setFechaPedido(int dia, int mes, int anio) {
 void PedidoCabecera::setEntregado(bool entregado) {
     this->_entregado = entregado;
 }
+void PedidoCabecera::setEstado(bool estado) {
+    this->_estado = estado;
+}
 
-// gets
+/// gets
 int PedidoCabecera::getNumeroPedido() {
     return this->_nroPedido;
 }
@@ -57,10 +47,15 @@ Fecha PedidoCabecera::getFechaPedido() {
 bool PedidoCabecera::getEntregado() {
     return this->_entregado;
 }
+
+bool PedidoCabecera::getEstado() {
+    return this->_estado;
+}
+
 int PedidoCabecera::getNumeroPedidoUlt() {
     FILE *f;
     f = fopen("PedidosCabecera.dat", "rb");
-    if(f == nullptr) return -1;
+    if(f == nullptr) return 1;
 
     if(flength(f) <= 0) {
         fclose(f);
@@ -70,54 +65,63 @@ int PedidoCabecera::getNumeroPedidoUlt() {
         PedidoCabecera pedidoAux;
         while(fread(&pedidoAux, sizeof(PedidoCabecera), 1, f) == 1);
         fclose(f);
-        return pedidoAux.getNumeroPedido();
+        return pedidoAux.getNumeroPedido() + 1;
     }
 }
 
-// metodos
-//int PedidoCabecera::cargar() {
-//    _nroPedido = getNumeroPedidoUlt();
-//
-//    std::cout << "\nDNI Cliente: ";
-//    std::cin >> _dniCliente;
-//    Cliente cliente;
-//    if(cliente.verificarDni(_dniCliente) == 0) {
-//        std::cout << "\nCliente no registrado.";
-//        cliente.cargar(_dniCliente);
-//        cliente.escribirArchivo();
-//    }
-//
-//    std::cout << "\nCantidad (Productos): ";
-//    int cantidad;
-//    std::cin >> cantidad;
-//    if(cantidad <= 0) {
-//        return 0;
-//    }
-//    else {
-//        PedidoDetalle pedidoAux;
-//        for(int i=0;i<cantidad;i++) {
-//            std::cout << "\nProducto " << i+1 << "\n";
-//            if(pedidoAux.cargar(_nroPedido) == 1) {
-//                pedidoAux.escribirArchivo();
-//            }
-//        }
-//    }
-//
-//    Fecha fecha;
-//    fecha.hoy();
-//    _fechaPedido = fecha;
-//
-//    _entregado = false;
-//    return 1;
-//}
-void PedidoCabecera::mostrar() {
-    std::cout << "PEDIDO NUM: " << this->_nroPedido << std::endl;
-    std::cout << "DNI CLIENTE: " << this->_dniCliente << std::endl;
-    std::cout << "IMPORTE TOTAL: " << this->_precioTotal << std::endl;
-    std::cout << "FECHA: ";
-    this->_fechaPedido.mostrar();
-    std::cout << "ESTADO DE ENTREGA: " << this->_entregado << std::endl;
-    std::cout << std::endl;
+/// metodos
+
+int cantPedidoCabecera(){
+    FILE *f;
+    f = fopen("PedidosCabecera.dat", "rb");
+    if(f == nullptr) return 0;
+
+    PedidoCabecera reg;
+    int cont=0;
+    while(fread(&reg, sizeof(PedidoCabecera), 1, f) == 1){
+        cont++;
+    }
+
+    fclose(f);
+    return cont;
+}
+
+void PedidoCabecera::Cargar() {
+    _nroPedido = getNumeroPedidoUlt();
+    std::cout << "\n Pedido " << _nroPedido << "\n";
+    std::cout << "\n DNI cliente       | ";
+    std::cin >> _dniCliente;
+    std::cout << "\n Entregado (1/0)   | ";
+    std::cin >> _entregado;
+
+    int cont = 1;
+    _pedidoDetalle = (PedidoDetalle*) malloc(sizeof(PedidoDetalle));
+    while(_pedidoDetalle[cont-1].Cargar(&cont) == 1) {
+        _pedidoDetalle = (PedidoDetalle*) realloc(_pedidoDetalle, ++cont * sizeof(PedidoDetalle));
+    }
+    _contDetalle = cont-1;
+
+    for(int i=0;i<cont-1;i++) {
+        _precioTotal += _pedidoDetalle[i].getImporte();
+    }
+
+    _fechaPedido.hoy();
+
+    _estado = true;
+}
+
+void PedidoCabecera::Mostrar() {
+    std::cout<<"\n N Pedido      | "<<_nroPedido<<endl;
+    std::cout<<" Importe       | $"<< _precioTotal<<endl;
+    std::cout<<" Fecha pedido  | "; _fechaPedido.mostrar();
+    std::cout << " DNI cliente   | "<<_dniCliente<<endl<<endl;
+}
+
+void PedidoCabecera::MostrarDetalles() {
+    for(int i=0;i<_contDetalle;i++) {
+        _pedidoDetalle[i].Mostrar();
+        std::cout << "\n------------\n";
+    }
 }
 
 int PedidoCabecera::escribirArchivo() {
@@ -135,8 +139,8 @@ int PedidoCabecera::leerArchivo(int pos_actual) {
     FILE *f;
     f = fopen("PedidosCabecera.dat", "rb");
     if(f == nullptr) return -1;
-    fseek(f, sizeof(PedidoCabecera)*pos_actual, 0);
-    int ret = fread(this, sizeof(PedidoCabecera), 1, f);
+
+    int ret = fread(this, sizeof(PedidoCabecera) * pos_actual, 1, f);
     fclose(f);
 
     return ret;
@@ -159,153 +163,112 @@ int PedidoCabecera::verificarNumero(int numero, int *p) {
     return 0;
 }
 
-//-----------------------------------------------------------------------------
+/*float  CalcularImporteTotal(int NroPedido){
+    FILE *f;
+    f = fopen("PedidosDetalle.dat", "rb");
+    if(f == nullptr) return -1;
 
-void menuPedidos()
-{
+    PedidoDetalle reg;
+    float acu=0;
+    while(fread(&reg, sizeof(PedidoDetalle), 1, f) == 1) {
+        if(reg.getNroPedido()==NroPedido){
+            acu+=reg.getImporte();
+        }
+    }
+
+    fclose(f);
+
+    return acu;
+}*/
+
+void menuPedidos() {
     int opc;
     while(1) {
         system("cls");
-        std::cout << "\nSUBMENU PEDIDOS\n";
-        std::cout << "----------------\n";
-        std::cout << "1 - CARGAR\n";
-        std::cout << "2 - MODIFICAR\n";
-        std::cout << "3 - VER ACTIVOS\n";
-        std::cout << "4 - VER TODOS\n";
-        std::cout << "5 - ELIMINAR\n";
-        std::cout << "----------------\n";
-        std::cout << "\n0 - SALIR\n\n";
-        std::cin >> opc;
+        recuadro(1, 1, 35, 15, cBLANCO, cNEGRO);
+        gotoxy(10, 3);
+        cout << "Submenu Pedidos";
+        recuadro(3, 5, 31, 9, cBLANCO, cNEGRO);
+        gotoxy(4, 6);
+        cout << "1 - Cargar pedido";
+        gotoxy(4, 7);
+        cout << "2 - Modificar pedido";
+        gotoxy(4, 8);
+        cout << "3 - Listar pedido (Nro)";
+        gotoxy(4, 9);
+        cout << "4 - Listar pedido (Activos)";
+        gotoxy(4, 10);
+        cout << "5 - Listar pedido (Entregados)";
+        gotoxy(4, 11);
+        cout << "6 - Eliminar pedido";
+        gotoxy(4, 13);
+        cout << "0 - Volver al menu";
+        gotoxy(1, 18);
+        cin >> opc;
 
         switch(opc) {
-            case 1: cargarPedidos(); break;
+            case 1: {
+                system("cls");
+                PedidoCabecera reg;
+                reg.Cargar();
+                if(reg.getPrecioTotal()>0){
+                    reg.escribirArchivo();
+                    std::cout << sizeof(reg) << std::endl;
+                    system("pause");
+                }
+            }
+            break;
             case 2: break;
-            case 3: verPedidosActivos(); break;
-            case 4: verPedidosTodos(); break;
-            case 5: break;
+            case 5:
+                verPedidosEntregados();
+                system("pause");
+            break;
+            case 6:
+                system("cls");
+                borrarPedidos();
+            break;
             case 0: return;
         }
     }
 }
-void cargarPedidos()
-{
-    PedidoCabecera obj;
-    PedidoDetalle pedidoDaux;
-    Cliente clienteAux;
-
-    system("cls");
-    std::cout<<"** CARGA DE PEDIDO **"<<std::endl;
-    std::cout<<"---------------------"<<std::endl;
-
-    int dniCliente;
-    std::cout << "DNI CLIENTE: "; ///
-    std::cin >> dniCliente;
-    if(!clienteAux.verificarDni(dniCliente))
-    {
-        std::cout << "CLIENTE NO REGISTRADO" << std::endl;
-        system("pause");
-        return;
-    }
-
-    int numeroDePedido = autoNroPedido(); ///Numero de pedido automatico en base a los registros en archivo
-    char codigoDeProducto[4];
-
-    std::cout << "CODIGO DE PRODUCTO: ";
-    std::cin >> codigoDeProducto;
-
-    while(!strcmp(codigoDeProducto,"0") == 0)
-    {
-
-        if(pedidoDaux.cargar(numeroDePedido,codigoDeProducto) == 1) pedidoDaux.escribirArchivo();
 
 
-
-        system("cls");
-        std::cout <<"** CARGA DE PEDIDO **" << std::endl;
-        std::cout <<"---------------------" << std::endl;
-        std::cout << "DNI CLIENTE: " << dniCliente << std::endl;
-        mostrarPedidosDetallesPorNroPedido(numeroDePedido);
-        std::cin.ignore();
-        std::cout << "CODIGO DE PRODUCTO: ";
-        std::cin >> codigoDeProducto;
-    }
-
-    if(!guardarPedidosDetallesPorNroPedido(dniCliente,numeroDePedido))
-    {
-        std::cout << "REGISTRO NO ARCHIVADO" << std::endl;
-        return;
-    }
-    std::cout << "REGISTRO ARCHIVADO" << std::endl;
-    system("pause");
-
-}
-void modifPedidos()
-{
-
-}
-void verPedidosActivos()
-{
+void verPedidosEntregados() {
     system("cls");
 
     FILE *f;
     f = fopen("PedidosCabecera.dat", "rb");
-    if(f == nullptr) return;
 
-    PedidoCabecera aux;
-    while(fread(&aux, sizeof(PedidoCabecera), 1, f) == 1) {
-        if(aux.getEntregado() == false) aux.mostrar();
-    }
 
-    fclose(f);
-    system("pause");
-}
-void verPedidosTodos()
-{
-    system("cls");
+    gotoxy(5, 1);
+    std::cout << "Pedidos - Listar (Entregados)";
+    gotoxy(5, 2);
+    std::cout << "-----------------------------";
 
-    FILE *f;
-    f = fopen("PedidosCabecera.dat", "rb");
-    if(f == nullptr) return;
-
-    PedidoCabecera aux;
-    while(fread(&aux, sizeof(PedidoCabecera), 1, f) == 1) {
-        aux.mostrar();
-    }
-
-    fclose(f);
-    system("pause");
-}
-void borrarPedidos()
-{
-
-}
-
-int autoNroPedido()
-{
-    PedidoCabecera obj;
-    int i = 0, cont = 0;
-    while(obj.leerArchivo(i++) == 1)
-    {
-        cont++;
-    }
-    return cont + 1;
-}
-
-bool guardarPedidosDetallesPorNroPedido(int dniCliente,  int nroPedido)
-{
-//    PedidoCabecera obj;
-    PedidoDetalle aux;
-    Fecha fechaActual;
-    fechaActual.hoy();
-
-    int i = 0, importeTotal = 0;
-    while(aux.leerArchivo(i++))
-    {
-        if(aux.getNroPedido() == nroPedido && aux.getEstado() == true)
-        {
-            importeTotal += aux.getImporte();
+    int c = 0;
+    PedidoCabecera reg;
+    while(fread(&reg, sizeof(PedidoCabecera), 1, f) == 1) {
+        if(reg.getEntregado() == true && reg.getEstado() == true)  {
+            reg.Mostrar();
+            reg.MostrarDetalles();
+            c++;
         }
     }
-    PedidoCabecera obj(nroPedido,dniCliente,importeTotal,fechaActual.getDia(),fechaActual.getMes(),fechaActual.getAnio(),false);
-    obj.escribirArchivo();
+
+    if(c == 0) {
+        gotoxy(5, 4);
+        std::cout << "Sin registros.\n\n";
+    }
+    else {
+        std::cout << "\n";
+    }
+
+    fclose(f);
 }
+
+void borrarPedidos() {
+
+}
+
+
+

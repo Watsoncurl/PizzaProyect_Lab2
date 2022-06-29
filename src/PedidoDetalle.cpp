@@ -5,34 +5,24 @@
 #include "PedidoCabecera.h"
 #include "Producto.h"
 
-
-PedidoDetalle::PedidoDetalle(int _nroPedido, int _cantidad, const char _codigoProducto[4], float _importe, bool estado) {
-
-}
-
-PedidoDetalle::~PedidoDetalle() {
-
-}
-
 // sets
-void PedidoDetalle::setNroPedido(int nroPedido) {
-    this->_nroPedido = nroPedido;
+void PedidoDetalle::setNroDetalle(int nroDetalle) {
+    this->_nroDetalle = nroDetalle;
 }
 void PedidoDetalle::setCantidad(int cantidad) {
     this->_cantidad = cantidad;
 }
-void PedidoDetalle::setCodigoProducto(char codigo[4]) {
+void PedidoDetalle::setCodigoProducto(const char codigo[4]) {
     strcpy(this->_codigoProducto, codigo);
 }
 void PedidoDetalle::setImporte(float importe) {
     this->_importe = importe;
+
 }
-void PedidoDetalle::setEstado(bool estado){
-    this->_estado = estado;
-}
+
 // gets
-int PedidoDetalle::getNroPedido() {
-    return this->_nroPedido;
+int PedidoDetalle::getNroDetalle() {
+    return this->_nroDetalle;
 }
 int PedidoDetalle::getCantidad() {
     return this->_cantidad;
@@ -43,43 +33,48 @@ char *PedidoDetalle::getCodigoProducto() {
 float PedidoDetalle::getImporte() {
     return this->_importe;
 }
-bool PedidoDetalle::getEstado() {
-    return this->_estado;
-}
 
 // metodos
-int PedidoDetalle::cargar(int nroPedido, char* codigoProducto) {
-    this->_nroPedido = nroPedido;
+int PedidoDetalle::Cargar(int *nroDetalle) {
+    _nroDetalle = *nroDetalle;
+    std::cout << "\n Detalle " << _nroDetalle << "\n";
+    std::cout << "\n Producto - Codigo | ";
+    std::cin >> _codigoProducto;
 
     Producto producto;
-    if(producto.verificarCodigo(codigoProducto) != 1) {
-        std::cout << "\n\nError: Codigo inexistente.\n\n";
-        system("pause");
+    if(strcmp(_codigoProducto, "0") == 0) {
+            return 0;
+    }
+    if(producto.verificarCodigo(_codigoProducto) != 1) {
+        std::cout << "\n\n Error: Codigo inexistente.\n\n";
         return 0;
     }
-    strcpy(this->_codigoProducto, codigoProducto);
+    std::cout << " Producto          | " <<  producto.getDescripcion() << "\n";
+    std::cout << " Precio            | $" << producto.getPrecioUnit();
+    std::cout << "\n Unidades          | ";
+    std::cin >> _cantidad;
 
-    int cantidad;
-    std::cout << "\nCantidad (Producto): ";
-    std::cin >> cantidad;
-
-    bool test = verificarStock(codigoProducto, cantidad);
-    if(!test) {
-        std::cout << "\n\nError: Sin stock.\n\n";
+    if(producto.getStock() <= 0) {
+        std::cout << "\n\n Error: Sin stock.\n\n";
         system("pause");
-        return 0;
+        return -1;
     }
-    this->_cantidad = cantidad;
+    if(_cantidad > producto.getStock()) {
+        std::cout << "\n\n Error: Stock insuficiente.\n\n";
+        system("pause");
+        return -1;
+    }
+    this->_importe=calcularImporte(producto.getPrecioUnit(), _cantidad);
+    std::cout << "\n Subtotal          | $" <<_importe <<"\n";
+    std::cout << "\n -------------------\n";
 
-    calcularImporte(producto.getPrecioUnit(), this->_cantidad);
-    this->_estado = true;
     return 1;
 }
-void PedidoDetalle::mostrar() {
-    if(this->_estado)
-    {
-        std::cout << "Pedido Nro: " << _nroPedido << "\tCodigo (Producto): " << _codigoProducto << "\tUnidades: " << _cantidad << "\tImporte: $" << _importe << "\n";
-    }
+
+void PedidoDetalle::Mostrar() {
+    std::cout << " Producto          | " << _codigoProducto<<"\n";
+    std::cout << "\n Unidades          | " << _cantidad<<"\n";
+    std::cout << " Importe           | $" << _importe<<"\n\n";
 }
 
 int PedidoDetalle::escribirArchivo() {
@@ -96,28 +91,18 @@ int PedidoDetalle::leerArchivo(int pos_actual) {
     FILE *f;
     f = fopen("PedidosDetalle.dat", "rb");
     if(f == nullptr) return -1;
-    fseek(f, sizeof(PedidoDetalle)*pos_actual, 0);
-    int ret = fread(this, sizeof(PedidoDetalle), 1, f);
+
+    int ret = fread(this, sizeof(PedidoDetalle) * pos_actual, 1, f);
+
     fclose(f);
 
     return ret;
 }
 
-void PedidoDetalle::calcularImporte(float importe, int cantidad) {
-    this->_importe = importe * cantidad;
+float PedidoDetalle::calcularImporte(float importe, int cantidad) {//debe retornar
+    return importe * cantidad;
 }
 
-//------------------------------------------------------------------------------
 
-void mostrarPedidosDetallesPorNroPedido(int numeroDePedido)
-{
-    PedidoDetalle aux;
-    int i = 0;
-    while(aux.leerArchivo(i++) == 1)
-    {
-        if(aux.getEstado() == true && aux.getNroPedido() == numeroDePedido)
-        {
-            aux.mostrar();
-        }
-    }
-}
+
+

@@ -34,9 +34,9 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
-		<Unit filename="Header.h" />
 		<Unit filename="include/Cliente.h" />
 		<Unit filename="include/Fecha.h" />
+		<Unit filename="include/FuncionesWindows.h" />
 		<Unit filename="include/PedidoCabecera.h" />
 		<Unit filename="include/PedidoDetalle.h" />
 		<Unit filename="include/Producto.h" />
@@ -44,6 +44,7 @@
 		<Unit filename="main.cpp" />
 		<Unit filename="src/Cliente.cpp" />
 		<Unit filename="src/Fecha.cpp" />
+		<Unit filename="src/FuncionesWindows.cpp" />
 		<Unit filename="src/PedidoCabecera.cpp" />
 		<Unit filename="src/PedidoDetalle.cpp" />
 		<Unit filename="src/Producto.cpp" />

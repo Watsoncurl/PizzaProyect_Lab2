@@ -5,24 +5,23 @@ class Producto {
     private:
         char  _codigo[4], _descripcion[20];
         float _precioUnit;
-        int   _stock; // reponer stock de pizzas diariamente
+        int   _stock; /// reponer stock de pizzas diariamente
         bool  _estado;
     public:
         Producto(const char _codigo[4]="", const char _descripcion[20]="", float _precioUnit=0, int _stock=0, bool _estado=true);
-        ~Producto();
-// sets
+/// sets
         void setCodigo(char codigo[4]);
         void setDescripcion(char descripcion[20]);
         void setPrecioUnit(float);
         void setStock(int);
         void setEstado(bool);
-// gets
+/// gets
         char *getCodigo();
         char *getDescripcion();
         float getPrecioUnit();
         int   getStock();
         bool  getEstado();
-// metodos
+/// metodos
         void cargar(char*);
         void mostrar();
         int  escribirArchivo();
@@ -35,9 +34,9 @@ class Producto {
 void menuProductos();
 void cargarProductos();
 void modifProductos(char*);
+void verProductosCodigo();
 void verProductos();
 void borrarProductos(char*);
 void reemplProductos(Producto);
-bool verificarStock(char*, int);
 
-#endif // PRODUCTO_H
+#endif /// PRODUCTO_H

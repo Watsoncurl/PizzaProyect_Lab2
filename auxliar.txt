@@ -1,0 +1,34 @@
+    _nroPedido = getNumeroPedidoUlt()+1;
+
+    std::cout << "\n DNI cliente       | ";
+    std::cin >> _dniCliente;
+    Cliente cliente;
+    /*if(cliente.verificarDni(_dniCliente) != 1) {
+        std::cout << "\nCliente no registrado.";
+        cliente.cargar(_dniCliente);
+        cliente.escribirArchivo();
+    }*/ /// Implementar luego (cuando el menú opciones esté listo)
+    std::cout << "\n Entregado (1/0)   | ";
+    std::cin >> _entregado;
+
+    PedidoDetalle reg;
+    int x=1, c = 0;
+    while (x!=0){
+        x = reg.cargar(_nroPedido);
+        if(x==1){
+            reg.escribirArchivo();
+            reg.leerArchivo(c++);
+            reg.mostrar();
+        }
+    }
+
+    _precioTotal=CalcularImporteTotal(_nroPedido);
+
+    std::cout<<"\n -------------------\n";
+    std::cout<<"\n Total             | $"<< _precioTotal<< "\n\n";
+
+    _fechaPedido.hoy();
+    _estado = true;
+
+    system("pause");
+    return 1;

@@ -27,12 +27,15 @@ class Venta
         float getPrecioVenta();
         Fecha getFechaVenta();
 //        metodos
-        void cargar();
+        void cargar(int NroPedido);
+        void mostrar();
+        int escribirArchivo();
 };
 
 void menuVentas();
 void modifVentas();
 void verVentas();
 void borrarVentas();
+int cantRegVenta();
 
 #endif // VENTA_H

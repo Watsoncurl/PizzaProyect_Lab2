@@ -1,7 +1,7 @@
 #ifndef CLIENTE_H
 #define CLIENTE_H
 
-// no permitir delivery a zonas peligrosas, agregar luego set y get
+/// no permitir delivery a zonas peligrosas, agregar luego set y get
 class Cliente {
     private:
         int   _dni;
@@ -9,8 +9,7 @@ class Cliente {
         bool  _estado;
     public:
         Cliente(int _dni=0, const char _nombre[20]="", const char _apellido[20]="", const char _direccion[40]="", bool _estado=true);
-        ~Cliente();
-// sets
+/// sets
     void setDni(int);
     void setNombre(char nombre[20]);
     void setApellido(char apellido[20]);
@@ -18,7 +17,7 @@ class Cliente {
     void setEmail(char email[30]);
     void setDireccion(char direccion[40]);
     void setEstado(bool);
-// gets
+/// gets
     int  getDni();
     char *getNombre();
     char *getApellido();
@@ -26,7 +25,7 @@ class Cliente {
     char *getEmail();
     char *getDireccion();
     bool getEstado();
-// metodos
+/// metodos
     void cargar(int dni=0);
     void mostrar();
     int  escribirArchivo();
@@ -37,8 +36,10 @@ class Cliente {
 void menuClientes();
 void cargarClientes();
 void modifClientes(int dni);
+void verClientesDni();
 void verClientes();
 void borrarClientes(int dni);
 void reemplClientes(Cliente cliente);
+void InfoCliente(int dni);
 
-#endif // CLIENTE_H
+#endif /// CLIENTE_H

@@ -77,3 +77,4 @@ int anioActual()
 	tm* timePtr = localtime(&t);
 	return timePtr->tm_year + 1900;
 }
+
